@@ -33,8 +33,38 @@ class Forward_List{
             return temp->data;
         }
 
-        void push_front(T _data);
-        void push_back(T _data);
+        void push_front(T _data){
+            Nodo* nodo = new Nodo;
+            nodo->data = _data;
+
+            if(!head)
+                nodo->next = nullptr;
+            else
+                nodo->next = head;
+
+            head = nodo;
+            nodos++;
+        }
+
+        void push_back(T _data){
+            Nodo* nodo = new Nodo;
+            nodo->data = _data;
+
+            if(!head){
+                nodo->next = nullptr;
+                head = nodo;
+            }
+            else{
+                Nodo* temp = head;
+                while(temp->next)
+                    temp = temp->next;
+                temp->next = nodo;
+                nodo->next = nullptr;
+            }
+            
+            nodos++;
+        }
+
         T pop_front();
         T pop_back();
         T operator[](int index);
