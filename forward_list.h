@@ -1,0 +1,6 @@
+#ifndef TAREA1_LISTAS_FORWARD_LIST_H
+#define TAREA1_LISTAS_FORWARD_LIST_H
+
+class Forward_List{};
+
+#endif //TAREA1_LISTAS_FORWARD_LIST_H
