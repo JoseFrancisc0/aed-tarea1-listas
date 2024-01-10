@@ -7,9 +7,13 @@ class Forward_List{
         struct Nodo{
             T data;
             Nodo* next;
-        }
+        };
+
+        Nodo* head;
+        int nodos;
+
     public:
-        Forward_List();
+        Forward_List(): head(nullptr), nodos(0);
 
         T front();
         T back();
@@ -24,7 +28,9 @@ class Forward_List{
         void sort();
         void reverse();
 
-        ~Forward_List();
+        ~Forward_List(){
+            clear();
+        };
 };
 
 #endif //TAREA1_LISTAS_FORWARD_LIST_H
