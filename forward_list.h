@@ -13,7 +13,7 @@ class Forward_List{
         int nodos;
 
     public:
-        Forward_List(): head(nullptr), nodos(0);
+        Forward_List(): head(nullptr), nodos(0){};
 
         T front(){
             if(!head)
