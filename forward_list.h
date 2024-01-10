@@ -65,8 +65,44 @@ class Forward_List{
             nodos++;
         }
 
-        T pop_front();
-        T pop_back();
+        T pop_front(){
+            if(!head)
+                throw std::out_of_range("Lista vacia");
+            
+            Nodo* temp = head;
+            T popped = temp->data;
+            head = head->next;
+            delete temp;
+
+            nodos--;
+            return popped;
+        }
+
+        T pop_back(){
+            if(!head)
+                throw std::out_of_range("Lista vacia");
+            
+            if(!head->next){
+                T popped = head->data;
+                delete head;
+                head = nullptr;
+
+                nodos = 0;
+                return popped;
+            }
+            else{
+                Nodo* temp = head;
+                while(temp->next->next)
+                    temp = temp->next;
+                T popped = temp->next->data;
+                delete temp->next;
+                temp->next = nullptr;
+
+                nodos--;
+                return popped;
+            }
+        }
+
         T operator[](int index);
         bool empty();
         int size();
