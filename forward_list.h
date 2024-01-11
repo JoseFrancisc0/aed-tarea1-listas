@@ -103,16 +103,91 @@ class Forward_List{
             }
         }
 
-        T operator[](int index);
-        bool empty();
-        int size();
-        void clear();
-        void sort();
-        void reverse();
-
-        ~Forward_List(){
-            clear();
+        T operator[](int index){
+            if(index < 0 || index >= nodos)
+                throw std::out_of_range("Indice no encontrado");    
+            if(index == 0)
+                return front();
+            if(index == nodos-1)
+                return back();
+            
+            Nodo* temp = head;
+            for(int i=0; i<=index; i++)
+                temp = temp->next;
+            
+            return temp->data;
         }
+
+        bool empty(){
+            return nodos == 0;
+        }
+
+        int size(){
+            return nodos;
+        }
+
+        void clear(){
+            while(head)
+                pop_front();
+        }
+
+        void sort(){
+            if(!head || !head->next)
+                return;
+            
+            Nodo* nodo = head;
+            while(nodo->next){
+                Nodo* min = nodo;
+                Nodo* temp = nodo->next;
+                
+                while(temp){
+                    if(temp->data < min->data)
+                        min = temp;
+                    temp = temp->next;
+                }
+                
+                T _data = nodo->data;
+                nodo->data = min->data;
+                min->data = _data;
+
+                nodo = nodo->next;
+            }
+        }
+
+        void reverse(){
+            if(!head || !head->next)
+                return;
+
+            Nodo* temp = head;
+            Nodo* prev = nullptr;
+            Nodo* next = nullptr;
+
+            while(temp){
+                next = temp->next;
+                temp->next = prev;
+                prev = temp;
+                temp = next;
+            }
+
+            head = prev;
+        }
+
+        void print(){
+            if(!head)
+                throw std::out_of_range("Lista vacia");
+            
+            Nodo* temp = head;
+            while(temp){
+                std::cout<< temp->data << " ";
+                temp = temp->next;
+            }
+            std::cout << std::endl;
+        };
+
+        ~forward_list(){
+            clear();
+            head = nullptr;
+        };
 };
 
 #endif //TAREA1_LISTAS_FORWARD_LIST_H
