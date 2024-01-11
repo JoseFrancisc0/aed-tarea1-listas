@@ -100,13 +100,115 @@ class Doubly_Linked_List{
             return popped;
         }
 
-        void insert(T _data, int index);
-        void erase(T _data);
-        T operator[](int index);
-        bool empty();
-        int size();
-        void clear();
-        void reverse();
+        void insert(T _data, int index){
+            if(index < 0 || index > nodos)
+                throw std::out_of_range("Indice no encontrado");
+            
+            if(index == 0)
+                push_front(_data);
+            else if(index == nodos)
+                push_back(_data);
+            else{
+                Nodo* nodo = new Nodo;
+                nodo->data = _data;
+                
+                Nodo* temp = head;
+                
+                for(int i=0; i<index-1; i++)
+                    temp = temp->next;
+                
+                nodo->prev = temp;
+                nodo->next = temp->next;
+                temp->next->prev = nodo;
+                temp->next = nodo;
+
+                nodos++;
+            }
+        }
+
+        void remove(int index){
+            if(!head)
+                throw std::out_of_range("Lista vacia");
+            if(index < 0 || index >= nodos)
+                throw std::out_of_range("Indice no encontrado");
+            
+            if(index == 0)
+                pop_front();
+            else if(index == nodos-1)
+                pop_back();
+            else{
+                Nodo* temp = head;
+                for(int i=0; i<index; i++)
+                    temp = temp->next;
+                
+                Nodo* deleted = temp;
+                temp->prev->next = temp->next;
+                temp->next->prev = temp->prev;
+
+                delete deleted;
+                nodos--;
+            }
+        }
+
+        T operator[](int index){
+            if(index < 0 || index >= nodos)
+                throw std::out_of_range("Indice no encontrado");
+            if(index == 0)
+                return front();
+            if(index == nodos-1)
+                return back();
+            
+            Nodo* temp = head;
+            for(int i=0; i<=index; i++)
+                temp = temp->next;
+            
+            return temp->data;
+        }
+
+        bool empty(){
+            return nodos == 0;
+        }
+
+        int size(){
+            return nodos;
+        }
+
+        void clear(){
+            while(head)
+                pop_front();
+        }
+
+        void reverse(){
+            if(!head || head == tail)
+                return;
+            
+            Nodo* prev = nullptr;
+            Nodo* temp = head;
+            Nodo* next = nullptr;
+
+            while(temp){
+                next = temp->next;
+                temp->next = prev;
+                temp->prev = next;
+                prev = temp;
+                temp = next;
+            }
+
+            tail = head;
+            head = prev;
+        }
+
+        void print(){
+            if(!head)
+                throw std::out_of_range("Lista vacia");
+            
+            Nodo* temp = head;
+            while(temp){
+                std::cout<< temp->data << " ";
+                temp = temp->next;
+            }
+            std::cout << std::endl;
+        }
 
         ~Doubly_Linked_List(){
             clear();
