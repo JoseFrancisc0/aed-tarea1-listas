@@ -184,9 +184,8 @@ class Forward_List{
             std::cout << std::endl;
         };
 
-        ~forward_list(){
+        ~Forward_List(){
             clear();
-            head = nullptr;
         };
 };
 
