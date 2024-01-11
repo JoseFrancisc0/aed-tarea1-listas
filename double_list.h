@@ -31,8 +31,37 @@ class Doubly_Linked_List{
             return tail->data;
         }
 
-        void push_front(T _data);
-        void push_back(T _data);
+        void push_front(T _data){
+            Nodo* temp = new Nodo;
+            temp->data = _data;
+            temp->next = head;
+
+            if(head){
+                head->prev = temp;
+                head = temp;
+            }
+            else
+                head = tail = temp;
+            
+            nodos++;
+        }
+
+        void push_back(T _data){
+            Nodo* temp = new Nodo;
+            temp->data = _data;
+            temp->next = nullptr;
+
+            if(tail){
+                tail->next = temp;
+                temp->prev = tail;
+                tail = temp;
+            }
+            else
+                tail = head = temp;
+            
+            nodos++;
+        }
+
         T pop_front();
         T pop_back();
         void insert(T _data, int index);
