@@ -9,8 +9,13 @@ class Doubly_Linked_List{
             Nodo* prev;
             Nodo* next;
         };
+
+        Nodo* head;
+        Nodo* tail;
+        int nodos;
+
     public:
-        Doubly_Linked_List();
+        Doubly_Linked_List(): head(nullptr), tail(nullptr), nodos(0){};
 
         T front();
         T back();
@@ -26,7 +31,9 @@ class Doubly_Linked_List{
         void clear();
         void reverse();
 
-        ~Doubly_Linked_List();
+        ~Doubly_Linked_List(){
+            clear();
+        }
 };
 
 #endif //TAREA1_LISTAS_DOUBLY_LINKED_LIST_H
