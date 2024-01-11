@@ -62,8 +62,44 @@ class Doubly_Linked_List{
             nodos++;
         }
 
-        T pop_front();
-        T pop_back();
+        T pop_front(){
+            if(!head)
+                throw std::out_of_range("Lista Vacia");
+            
+            Nodo* temp = head;
+            T popped = temp->data;
+
+            if(head == tail)
+                head = tail = nullptr;
+            else{
+                head = head->next;
+                head->prev = nullptr;
+            }
+            
+            delete temp;
+            nodos--;
+            return popped;
+        }
+
+        T pop_back(){
+            if(!head)
+                throw std::out_of_range("Lista Vacia");
+
+            Nodo* temp = tail;
+            T popped = temp->data;
+
+            if(tail == head)
+                tail = head = nullptr;
+            else{
+                tail = tail->prev;
+                tail->next = nullptr;
+            }
+
+            delete temp;
+            nodos--;
+            return popped;
+        }
+
         void insert(T _data, int index);
         void erase(T _data);
         T operator[](int index);
